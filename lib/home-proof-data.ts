@@ -19,7 +19,7 @@ export const homeTestimonials = [
 ];
 
 export const homeRealisationTeasers = [
-  { title: "Refonte digitale multi-sites", tag: "Web", summary: "Performance, SEO technique et parcours de conversion." },
-  { title: "Infogérance PME", tag: "IT", summary: "Supervision, sauvegardes et support utilisateurs centralisés." },
-  { title: "Academy & e-learning", tag: "Formation", summary: "Parcours métiers et montée en compétences équipes." }
+  { title: "I VOI RIEN médias", tag: "Business", summary: "Identité, communication et page Facebook gérée par HAITECH." },
+  { title: "Yelefood Lounge", tag: "Web", summary: "Site internet et application web de gestion du restaurant." },
+  { title: "Koumba Prestige Construction", tag: "Business", summary: "Contenus visuels, community management et maintenance." }
 ];

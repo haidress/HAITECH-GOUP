@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getAllRealisationSlugs } from "@/lib/realisations-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://haitech-group.ci";
@@ -15,8 +16,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/politique-confidentialite"
   ];
 
-  return routes.map((route) => ({
+  const staticEntries = routes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date()
   }));
+
+  const realisationEntries = getAllRealisationSlugs().map((slug) => ({
+    url: `${baseUrl}/realisations/${slug}`,
+    lastModified: new Date()
+  }));
+
+  return [...staticEntries, ...realisationEntries];
 }
