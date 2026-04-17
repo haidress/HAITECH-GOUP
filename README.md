@@ -1,4 +1,4 @@
-# HAITECH GROUP - Site Officiel
+# HAITECH GROUP — Site officiel (`HAITECH-GOUP`)
 
 ## Prérequis
 
