@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a2a5e;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Poppins", sans-serif;
+}
+
+.hero-gradient {
+  background: radial-gradient(circle at top right, rgba(212, 160, 23, 0.2), transparent 35%),
+    radial-gradient(circle at bottom left, rgba(10, 42, 94, 0.22), transparent 50%),
+    #0a2a5e;
+  background-size: 120% 120%;
+  animation: heroFloat 16s ease-in-out infinite;
+}
+
+.hero-living-bg {
+  background-attachment: scroll;
+}
+
+@media (min-width: 769px) {
+  .hero-living-bg {
+    background-attachment: local;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient {
+    animation: none;
+  }
+
+  .marquee-left-to-right {
+    animation: none !important;
+  }
+}
+
+.parallax-section {
+  background-image: linear-gradient(rgba(10, 42, 94, 0.8), rgba(10, 42, 94, 0.8)), url("/parallax-main.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  .parallax-section {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}
+
+@keyframes heroFloat {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes marqueeLTR {
+  0% {
+    transform: translateX(-45%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.marquee-left-to-right {
+  animation: marqueeLTR 34s linear infinite;
+}
+
+.marquee-left-to-right:hover {
+  animation-play-state: paused;
+}
