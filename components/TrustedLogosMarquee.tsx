@@ -9,7 +9,8 @@ const logos = [
   { label: "Logo partenaire 4", src: "/trust-4.jpeg" },
   { label: "Logo partenaire 5", src: "/trust-5.jpeg" },
   { label: "Logo partenaire 6", src: "/trust-6.jpeg" },
-  { label: "Logo partenaire 7", src: "/trust-7.jpg" }
+  { label: "Logo partenaire 7", src: "/trust-7.jpg" },
+  { label: "Logo partenaire 8", src: "/trust-8.jpg" }
 ] as const;
 
 export function TrustedLogosMarquee() {

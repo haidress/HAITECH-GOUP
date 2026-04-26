@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import { useAuthUser } from "@/components/AuthUserProvider";
 
 export function AccountMenu() {
@@ -72,6 +71,9 @@ export function AccountMenu() {
         onClick={() => setOpen((v) => !v)}
         className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-haitechBlue transition hover:border-haitechBlue/50 hover:shadow-sm"
         aria-label="Compte utilisateur"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-controls="account-menu-panel"
       >
         {user ? (
           <span className="text-sm font-bold text-haitechBlue">{initials}</span>
@@ -81,18 +83,15 @@ export function AccountMenu() {
           </span>
         )}
       </button>
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.98 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute right-0 top-12 z-50 w-64 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl"
-            onMouseLeave={() => {
-              // laisse le menu ouvert le temps d'interagir; pas de fermeture automatique au survol
-            }}
-          >
+      {open ? (
+        <div
+          id="account-menu-panel"
+          role="menu"
+          className="absolute right-0 top-12 z-50 w-64 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl"
+          onMouseLeave={() => {
+            // laisse le menu ouvert le temps d'interagir; pas de fermeture automatique au survol
+          }}
+        >
             <div className="bg-gradient-to-r from-haitechBlue to-haitechBlue/80 p-4">
               {user ? (
                 <div>
@@ -120,7 +119,7 @@ export function AccountMenu() {
               )}
             </div>
 
-            <div className="p-2">
+            <div className="p-2" role="none">
               {user ? (
                 <>
                   {roleLinks.map((link) => (
@@ -128,6 +127,7 @@ export function AccountMenu() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setOpen(false)}
+                      role="menuitem"
                       className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                     >
                       {link.label}
@@ -136,12 +136,14 @@ export function AccountMenu() {
                   <Link
                     href="/mon-profil"
                     onClick={() => setOpen(false)}
+                    role="menuitem"
                     className="mt-1 block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                   >
                     Mon profil
                   </Link>
                   <button
                     onClick={logout}
+                    role="menuitem"
                     className="mt-1 w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50"
                   >
                     Se déconnecter
@@ -152,6 +154,7 @@ export function AccountMenu() {
                   <Link
                     href="/login"
                     onClick={() => setOpen(false)}
+                    role="menuitem"
                     className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                   >
                     Se connecter
@@ -159,6 +162,7 @@ export function AccountMenu() {
                   <Link
                     href="/inscription"
                     onClick={() => setOpen(false)}
+                    role="menuitem"
                     className="mt-1 block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
                   >
                     Créer un compte
@@ -166,9 +170,8 @@ export function AccountMenu() {
                 </>
               )}
             </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+        </div>
+      ) : null}
     </div>
   );
 }

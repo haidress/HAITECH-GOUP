@@ -17,7 +17,8 @@ export type AuthUser = {
   emailVerifie: boolean;
 };
 
-export type UserRole = "admin" | "client" | "etudiant" | "technicien";
+export type UserRole = "admin" | "client" | "etudiant" | "technicien" | "catalog_manager" | "sales_manager" | "super_admin";
+export const BACKOFFICE_ROLES: UserRole[] = ["admin", "super_admin", "catalog_manager", "sales_manager"];
 
 function hashSessionToken(token: string) {
   return createHash("sha256").update(token).digest("hex");
@@ -128,4 +129,8 @@ export async function requireRole(roles: UserRole[]) {
 
 export async function requireAdminUser() {
   return requireRole(["admin"]);
+}
+
+export async function requireBackofficeUser() {
+  return requireRole(BACKOFFICE_ROLES);
 }

@@ -4,7 +4,7 @@ import { RowDataPacket } from "mysql2";
 import { getDbPool } from "@/lib/db";
 import { createEmailOtp, generateOtpCode } from "@/lib/otp";
 import { sendOtpEmail } from "@/lib/email";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimitSmart } from "@/lib/rate-limit";
 import { ensureSameOrigin } from "@/lib/request-security";
 
 const schema = z.object({
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const originGuard = ensureSameOrigin(request);
   if (originGuard) return originGuard;
 
-  const rate = checkRateLimit(request, "auth-send-otp", 5, 60_000);
+  const rate = await checkRateLimitSmart(request, "auth-send-otp", 5, 60_000);
   if (!rate.ok) {
     return NextResponse.json(
       { success: false, message: `Trop de requêtes OTP. Réessayez dans ${rate.retryAfterSec}s.` },

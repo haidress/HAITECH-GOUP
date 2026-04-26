@@ -34,6 +34,35 @@ export async function sendOtpEmail(to: string, otpCode: string) {
   return { delivered: true, fallback: false };
 }
 
+export async function sendLeadNurtureEmail(to: string, nom: string) {
+  const { host, port, user, pass, from } = getSmtpConfig();
+  if (!host || !user || !pass) {
+    console.log(`Lead nurture email fallback for ${to} (${nom})`);
+    return { delivered: false, fallback: true };
+  }
+
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass }
+  });
+
+  await transporter.sendMail({
+    from,
+    to,
+    subject: "HAITECH GROUP — votre demande nous tient à cœur",
+    html: `
+      <p>Bonjour ${nom},</p>
+      <p>Nous avons bien reçu votre message sur notre site et restons à votre disposition pour échanger sur votre besoin.</p>
+      <p>Répondez simplement à cet e-mail ou contactez-nous via le formulaire du site pour préciser votre contexte.</p>
+      <p>Cordialement,<br/>L'équipe HAITECH GROUP</p>
+    `
+  });
+
+  return { delivered: true, fallback: false };
+}
+
 export async function sendOrderStatusEmails({
   clientEmail,
   referenceCode,
@@ -88,6 +117,45 @@ export async function sendOrderStatusEmails({
       `
     });
   }
+
+  return { delivered: true, fallback: false };
+}
+
+export async function sendOrderRelanceEmail({
+  to,
+  referenceCode,
+  productName,
+  dayMark
+}: {
+  to: string;
+  referenceCode: string;
+  productName: string;
+  dayMark: number;
+}) {
+  const { host, port, user, pass, from } = getSmtpConfig();
+  if (!host || !user || !pass) {
+    console.log(`Order relance fallback: J+${dayMark} ${referenceCode} -> ${to}`);
+    return { delivered: false, fallback: true };
+  }
+
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass }
+  });
+
+  await transporter.sendMail({
+    from,
+    to,
+    subject: `Relance commande ${referenceCode} (J+${dayMark})`,
+    html: `
+      <p>Bonjour,</p>
+      <p>Nous revenons vers vous concernant votre commande <strong>${referenceCode}</strong> (${productName}).</p>
+      <p>Nous restons disponibles pour finaliser rapidement votre besoin.</p>
+      <p>Equipe HAITECH GROUP</p>
+    `
+  });
 
   return { delivered: true, fallback: false };
 }

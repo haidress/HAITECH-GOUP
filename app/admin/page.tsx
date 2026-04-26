@@ -1,8 +1,6 @@
-import { PageHero } from "@/components/PageHero";
-import { AdminSessionBar } from "@/components/AdminSessionBar";
+import { AdminDashboardShell } from "@/components/AdminDashboardShell";
 import { getDbPool } from "@/lib/db";
 import { RowDataPacket } from "mysql2";
-import Image from "next/image";
 
 export default async function AdminDashboardPage() {
   const pool = getDbPool();
@@ -121,35 +119,11 @@ export default async function AdminDashboardPage() {
   const outSla = Number(slaRows[0]?.out_sla ?? 0);
 
   return (
-    <div className="bg-slate-100 px-4 py-10">
-      <section className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl">
-        <div className="grid lg:grid-cols-[260px_1fr]">
-          <aside className="relative overflow-hidden bg-haitechBlue p-6 text-white">
-            <Image src="/admin-bg.jpg" alt="Structure dashboard" fill className="object-cover opacity-20" />
-            <div className="relative z-10">
-              <div className="rounded-2xl border border-white/25 bg-white/10 p-4 backdrop-blur">
-                <p className="text-xs uppercase tracking-wide text-slate-200">Profil admin</p>
-                <p className="mt-2 font-heading text-xl font-bold">HAITECH GROUP</p>
-                <p className="text-sm text-slate-100">Pilotage commercial</p>
-              </div>
-              <nav className="mt-6 space-y-2 text-sm">
-                <a href="/admin" className="block rounded-xl border border-white/20 px-3 py-2">Dashboard</a>
-                <a href="/admin/commandes" className="block rounded-xl border border-white/20 px-3 py-2">Commandes</a>
-                <a href="/admin/interventions" className="block rounded-xl border border-white/20 px-3 py-2">Interventions</a>
-                <a href="/admin/incidents" className="block rounded-xl border border-white/20 px-3 py-2">Incidents</a>
-                <a href="/admin/documents" className="block rounded-xl border border-white/20 px-3 py-2">Documents</a>
-                <a href="/admin/techniciens" className="block rounded-xl border border-white/20 px-3 py-2">Techniciens</a>
-                <a href="/admin/catalogue" className="block rounded-xl border border-white/20 px-3 py-2">Catalogue</a>
-                <a href="/admin/leads" className="block rounded-xl border border-white/20 px-3 py-2">Leads</a>
-                <a href="/admin/devis" className="block rounded-xl border border-white/20 px-3 py-2">Devis</a>
-              </nav>
-            </div>
-          </aside>
-
-          <div className="space-y-5 p-5 md:p-7">
-            <PageHero title="Dashboard Administrateur" description="Pilotage opérationnel HAITECH GROUP" />
-            <AdminSessionBar />
-
+    <AdminDashboardShell
+      title="Dashboard Administrateur"
+      description="Pilotage operationnel HAITECH GROUP"
+      currentPath="/admin"
+    >
             <div className="grid gap-4 md:grid-cols-4">
               <div className="rounded-2xl bg-haitechBlue p-5 text-white">
                 <p className="text-xs uppercase tracking-wide">Commandes</p>
@@ -256,9 +230,6 @@ export default async function AdminDashboardPage() {
                 )}
               </ul>
             </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    </AdminDashboardShell>
   );
 }

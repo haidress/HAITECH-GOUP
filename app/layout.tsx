@@ -1,36 +1,25 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import { Montserrat, Poppins } from "next/font/google";
 import { AuthUserProvider } from "@/components/AuthUserProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { defaultSiteMetadata } from "@/lib/site-default-metadata";
 
-export const metadata: Metadata = {
-  title: "HAITECH GROUP - Site Officiel",
-  description:
-    "HAITECH GROUP accompagne les particuliers, startups, PME et institutions avec des solutions IT, business et formation.",
-  keywords: ["HAITECH GROUP", "Abidjan", "IT", "Business Center", "Academy", "formation"],
-  metadataBase: new URL("https://haitech-group.ci"),
-  openGraph: {
-    title: "HAITECH GROUP - Site Officiel",
-    description:
-      "Solutions IT, Business Center et Formations pour accélérer votre croissance.",
-    url: "https://haitech-group.ci",
-    siteName: "HAITECH GROUP",
-    locale: "fr_FR",
-    type: "website"
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "HAITECH GROUP - Site Officiel",
-    description:
-      "Solutions IT, Business Center et Formations pour accélérer votre croissance."
-  },
-  icons: {
-    icon: "/logo-haitech.jpg",
-    shortcut: "/logo-haitech.jpg",
-    apple: "/logo-haitech.jpg"
-  }
-};
+export const metadata = defaultSiteMetadata;
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-poppins"
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  display: "swap",
+  variable: "--font-montserrat"
+});
 
 export default function RootLayout({
   children
@@ -38,11 +27,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
-      <body>
+    <html lang="fr" className={`${poppins.variable} ${montserrat.variable}`}>
+      <body className={poppins.className}>
+        <a
+          href="#contenu-principal"
+          className="sr-only z-[60] rounded-md bg-haitechBlue px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Aller au contenu principal
+        </a>
         <AuthUserProvider>
           <Header />
-          <main>{children}</main>
+          <main id="contenu-principal" tabIndex={-1}>
+            {children}
+          </main>
           <Footer />
         </AuthUserProvider>
       </body>

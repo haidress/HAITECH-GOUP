@@ -1,13 +1,12 @@
-"use client";
-
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-
-export default function CommandeConfirmationPage() {
-  const params = useSearchParams();
-  const order = params.get("order") ?? "-";
-  const reference = params.get("reference") ?? "-";
-  const email = params.get("email") ?? "";
+export default function CommandeConfirmationPage({
+  searchParams
+}: {
+  searchParams?: { order?: string; reference?: string; email?: string };
+}) {
+  const order = searchParams?.order ?? "-";
+  const reference = searchParams?.reference ?? "-";
+  const email = searchParams?.email ?? "";
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16">

@@ -43,9 +43,6 @@ export function HomeHeroSection() {
     };
   }, []);
 
-  const primaryCta =
-    home.homeExperimentVariant === "B" ? home.heroCtaPrimaryLabelB : home.heroCtaPrimaryLabel;
-
   const motionProps = reduceMotion
     ? { initial: false, animate: { opacity: 1, y: 0 } }
     : {
@@ -101,7 +98,7 @@ export function HomeHeroSection() {
             variants={reduceMotion ? undefined : childVariants}
             className="inline-block rounded-full border border-white/40 px-4 py-1 text-xs uppercase tracking-widest"
           >
-            Site officiel - Abidjan
+            Solutions digitales & business - Abidjan
           </motion.p>
           <motion.h1
             variants={reduceMotion ? undefined : childVariants}
@@ -113,14 +110,22 @@ export function HomeHeroSection() {
             variants={reduceMotion ? undefined : childVariants}
             className="max-w-xl text-base text-slate-100 md:text-lg"
           >
-            Nous transformons vos idées en solutions digitales, business et rentables.
+            Nous accompagnons entreprises et particuliers en Cote d&apos;Ivoire avec des solutions concretes : developpement web, automatisation, IT, immobilier et services business.
           </motion.p>
+          <motion.ul
+            variants={reduceMotion ? undefined : childVariants}
+            className="grid gap-2 text-sm text-slate-100"
+          >
+            <li>+235 000 personnes touchees via nos projets</li>
+            <li>+20 projets realises</li>
+            <li>Clients en Cote d&apos;Ivoire et a l&apos;international</li>
+          </motion.ul>
           <motion.div variants={reduceMotion ? undefined : childVariants} className="flex flex-wrap gap-3">
             <Link
               href="/contact"
               className="rounded-full bg-haitechGold px-6 py-3 font-semibold text-haitechBlue transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-haitechGold"
             >
-              {primaryCta}
+              Demander un devis
             </Link>
             <a
               href={whatsappLink}
@@ -131,10 +136,6 @@ export function HomeHeroSection() {
               Écrire sur WhatsApp
             </a>
           </motion.div>
-          <p className="text-xs text-slate-300">
-            Variante d’accroche (A/B) : réglage dans l’admin « Contenu accueil » — utile pour tester libellés avant
-            outils d’analyse avancés.
-          </p>
         </motion.div>
         <HomeMediaSlider />
       </div>

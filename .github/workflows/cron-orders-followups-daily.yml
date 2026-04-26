@@ -1,0 +1,21 @@
+name: Cron Orders Followups Daily
+
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger orders followups
+        env:
+          CRON_URL: ${{ secrets.CRON_ORDERS_FOLLOWUPS_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          test -n "$CRON_URL"
+          test -n "$CRON_SECRET"
+          curl -sS -X POST "$CRON_URL" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            -H "Content-Type: application/json"

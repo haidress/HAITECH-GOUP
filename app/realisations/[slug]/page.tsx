@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/PageHero";
-import { getAllRealisationSlugs, getRealisationBySlug, type RealisationTag } from "@/lib/realisations-data";
+import { getAllRealisationSlugs, getRealisationBySlug, type RealisationCase, type RealisationTag } from "@/lib/realisations-data";
 import { whatsappLink } from "@/components/site-data";
+import { getPublishedRealisationProjectBySlug, mapProjectRowToPublicCase } from "@/lib/repositories/realisations-repository";
 
 function tagClass(tag: RealisationTag): string {
   const map: Record<RealisationTag, string> = {
@@ -23,7 +24,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const c = getRealisationBySlug(slug);
+  const dynamicProject = await getPublishedRealisationProjectBySlug(slug).catch(() => null);
+  const c = dynamicProject ? mapProjectRowToPublicCase(dynamicProject) : getRealisationBySlug(slug);
   if (!c) return { title: "Réalisation introuvable" };
   return {
     title: `${c.title} | ${c.clientName} — HAITECH`,
@@ -33,7 +35,8 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function RealisationDetailPage({ params }: Props) {
   const { slug } = await params;
-  const c = getRealisationBySlug(slug);
+  const dynamicProject = await getPublishedRealisationProjectBySlug(slug).catch(() => null);
+  const c: RealisationCase | undefined = dynamicProject ? mapProjectRowToPublicCase(dynamicProject) : getRealisationBySlug(slug);
   if (!c) notFound();
 
   return (

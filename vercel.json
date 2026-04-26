@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/lead-followups",
+      "schedule": "20 7 * * *"
+    },
+    {
+      "path": "/api/cron/leads-export",
+      "schedule": "5 6 * * 1"
+    },
+    {
+      "path": "/api/cron/leads-retention-purge",
+      "schedule": "15 6 * * 1"
+    }
+  ]
+}

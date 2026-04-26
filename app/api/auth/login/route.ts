@@ -3,7 +3,7 @@ import { z } from "zod";
 import { createSession, SESSION_COOKIE, verifyCredentials } from "@/lib/auth";
 import { getDbPool, isMysqlConnectionCapacityError } from "@/lib/db";
 import { RowDataPacket } from "mysql2";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimitSmart } from "@/lib/rate-limit";
 import { ensureSameOrigin } from "@/lib/request-security";
 
 const schema = z.object({
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const originGuard = ensureSameOrigin(request);
   if (originGuard) return originGuard;
 
-  const rate = checkRateLimit(request, "auth-login", 10, 60_000);
+  const rate = await checkRateLimitSmart(request, "auth-login", 10, 60_000);
   if (!rate.ok) {
     return NextResponse.json(
       { success: false, message: `Trop de tentatives. Réessayez dans ${rate.retryAfterSec}s.` },

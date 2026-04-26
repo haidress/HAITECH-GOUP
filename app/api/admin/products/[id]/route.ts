@@ -9,6 +9,18 @@ const updateProductSchema = z.object({
   description: z.string().max(4000).optional().nullable(),
   categorie: z.enum(["Business Center", "Boutique IT"]),
   prixBase: z.coerce.number().min(0),
+  prixInitial: z.preprocess(
+    (value) => (value === "" || value == null ? undefined : value),
+    z.coerce.number().min(0).optional()
+  ),
+  imageUrl: z.preprocess(
+    (value) => {
+      if (value === undefined) return undefined;
+      if (value === "" || value == null) return null;
+      return value;
+    },
+    z.union([z.string().max(512), z.null()]).optional()
+  ),
   actif: z.boolean()
 });
 
@@ -47,10 +59,26 @@ export async function PATCH(
 
     const data = parsed.data;
     const pool = getDbPool();
-    await pool.execute(
-      "UPDATE services SET nom = ?, description = ?, categorie = ?, prix_base = ?, actif = ? WHERE id = ?",
-      [data.nom, data.description ?? null, data.categorie, data.prixBase, data.actif, id]
-    );
+    if (data.imageUrl !== undefined) {
+      await pool.execute(
+        "UPDATE services SET nom = ?, description = ?, categorie = ?, prix_base = ?, prix_initial = ?, image_url = ?, actif = ? WHERE id = ?",
+        [
+          data.nom,
+          data.description ?? null,
+          data.categorie,
+          data.prixBase,
+          data.prixInitial ?? null,
+          data.imageUrl,
+          data.actif,
+          id
+        ]
+      );
+    } else {
+      await pool.execute(
+        "UPDATE services SET nom = ?, description = ?, categorie = ?, prix_base = ?, prix_initial = ?, actif = ? WHERE id = ?",
+        [data.nom, data.description ?? null, data.categorie, data.prixBase, data.prixInitial ?? null, data.actif, id]
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -3,7 +3,7 @@ import { z } from "zod";
 import { RowDataPacket } from "mysql2";
 import { createSession, SESSION_COOKIE } from "@/lib/auth";
 import { verifyEmailOtp } from "@/lib/otp";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimitSmart } from "@/lib/rate-limit";
 import { ensureSameOrigin } from "@/lib/request-security";
 import { getDbPool } from "@/lib/db";
 
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   const originGuard = ensureSameOrigin(request);
   if (originGuard) return originGuard;
 
-  const rate = checkRateLimit(request, "auth-verify-otp", 10, 60_000);
+  const rate = await checkRateLimitSmart(request, "auth-verify-otp", 10, 60_000);
   if (!rate.ok) {
     return NextResponse.json(
       { success: false, message: `Trop de tentatives. Réessayez dans ${rate.retryAfterSec}s.` },

@@ -22,3 +22,30 @@ export function logEvent(level: "info" | "warn" | "error", message: string, meta
   };
   console[level](JSON.stringify(payload));
 }
+
+export function nowMs() {
+  return Date.now();
+}
+
+export function logApiCompletion({
+  route,
+  method,
+  status,
+  startedAt,
+  meta
+}: {
+  route: string;
+  method: string;
+  status: number;
+  startedAt: number;
+  meta?: Record<string, unknown>;
+}) {
+  const durationMs = Math.max(0, nowMs() - startedAt);
+  logEvent(status >= 500 ? "error" : status >= 400 ? "warn" : "info", "api_request_completed", {
+    route,
+    method,
+    status,
+    duration_ms: durationMs,
+    ...(meta ?? {})
+  });
+}

@@ -82,6 +82,8 @@ CREATE TABLE IF NOT EXISTS services (
   description TEXT NULL,
   categorie ENUM('Technology', 'Academy', 'Business Center', 'Boutique IT') NOT NULL,
   prix_base DECIMAL(12, 2) NOT NULL DEFAULT 0,
+  prix_initial DECIMAL(12, 2) NULL,
+  image_url VARCHAR(512) NULL,
   actif BOOLEAN NOT NULL DEFAULT TRUE,
   PRIMARY KEY (id),
   KEY idx_services_categorie (categorie)
@@ -322,6 +324,59 @@ CREATE TABLE IF NOT EXISTS home_public_content (
 INSERT INTO home_public_content (id, announcement_visible, hero_cta_primary_label, hero_cta_primary_label_b, home_experiment_variant)
 VALUES (1, 0, 'Demander un devis', 'Obtenir une proposition', 'A')
 ON DUPLICATE KEY UPDATE id = id;
+
+CREATE TABLE IF NOT EXISTS realisation_projects (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  slug VARCHAR(140) NOT NULL,
+  title VARCHAR(220) NOT NULL,
+  tag ENUM('Web', 'IT', 'Formation', 'Business') NOT NULL DEFAULT 'Business',
+  client_name VARCHAR(180) NOT NULL,
+  sector VARCHAR(180) NOT NULL,
+  context_text TEXT NOT NULL,
+  challenge_text TEXT NOT NULL,
+  solution_text TEXT NOT NULL,
+  outcome_text TEXT NOT NULL,
+  excerpt VARCHAR(500) NOT NULL,
+  year_label VARCHAR(40) NOT NULL,
+  duration_label VARCHAR(120) NOT NULL,
+  stack_json JSON NULL,
+  highlights_json JSON NULL,
+  detail_notes_json JSON NULL,
+  links_json JSON NULL,
+  image_url VARCHAR(600) NOT NULL,
+  image_fit ENUM('cover', 'contain') NOT NULL DEFAULT 'cover',
+  is_published TINYINT(1) NOT NULL DEFAULT 1,
+  sort_order INT NOT NULL DEFAULT 100,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_realisation_projects_slug (slug),
+  KEY idx_realisation_projects_published (is_published),
+  KEY idx_realisation_projects_sort_order (sort_order),
+  KEY idx_realisation_projects_tag (tag)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS cron_execution_locks (
+  lock_key VARCHAR(120) NOT NULL,
+  owner_token VARCHAR(120) NOT NULL,
+  expires_at DATETIME NOT NULL,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (lock_key),
+  KEY idx_cron_lock_expiry (expires_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS lead_followup_logs (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  lead_id BIGINT UNSIGNED NOT NULL,
+  followup_type ENUM('j2_email') NOT NULL,
+  status ENUM('claimed', 'sent', 'skipped', 'error') NOT NULL DEFAULT 'claimed',
+  details_json JSON NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_lead_followup_once (lead_id, followup_type),
+  KEY idx_lead_followup_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO roles (nom)

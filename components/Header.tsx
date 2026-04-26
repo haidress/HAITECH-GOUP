@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { publicNavLinks, roleNavLinks, whatsappLink } from "@/components/site-data";
 import { AccountMenu } from "@/components/AccountMenu";
 import { useAuthUser } from "@/components/AuthUserProvider";
@@ -15,6 +15,24 @@ export function Header() {
     if (!user) return publicNavLinks;
     return [...publicNavLinks, ...roleNavLinks[user.role]];
   }, [user]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setMobileOpen(false);
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileOpen]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -42,7 +60,9 @@ export function Header() {
           <button
             onClick={() => setMobileOpen((v) => !v)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-300 text-haitechBlue lg:hidden"
-            aria-label="Ouvrir le menu"
+            aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
           >
             <span className="text-lg">☰</span>
           </button>
@@ -50,8 +70,8 @@ export function Header() {
         </div>
       </div>
       {mobileOpen ? (
-        <div className="border-t border-slate-200 bg-white px-4 py-3 lg:hidden">
-          <nav className="flex flex-col gap-2">
+        <div id="mobile-navigation" className="border-t border-slate-200 bg-white px-4 py-3 lg:hidden">
+          <nav className="flex flex-col gap-2" aria-label="Navigation mobile principale">
             {navLinks.map((item) => (
               <Link
                 key={item.href}

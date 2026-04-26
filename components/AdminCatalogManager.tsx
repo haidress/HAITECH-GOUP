@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Product = {
   id: number;
@@ -8,6 +8,8 @@ type Product = {
   description: string | null;
   categorie: "Business Center" | "Boutique IT";
   prix_base: number;
+  prix_initial: number | null;
+  image_url?: string | null;
   actif: 0 | 1 | boolean;
 };
 
@@ -26,6 +28,8 @@ const initialProductForm = {
   description: "",
   categorie: "Business Center" as "Business Center" | "Boutique IT",
   prixBase: 0,
+  prixInitial: "" as number | "",
+  imageUrl: "",
   actif: true
 };
 
@@ -46,6 +50,8 @@ export function AdminCatalogManager() {
   const [editingProductId, setEditingProductId] = useState<number | null>(null);
   const [editingFormationId, setEditingFormationId] = useState<number | null>(null);
   const [feedback, setFeedback] = useState("");
+  const [uploadingProductImage, setUploadingProductImage] = useState(false);
+  const productFormAnchorRef = useRef<HTMLDivElement | null>(null);
   const businessProducts = products.filter((p) => p.categorie === "Business Center");
   const boutiqueProducts = products.filter((p) => p.categorie === "Boutique IT");
 
@@ -63,6 +69,29 @@ export function AdminCatalogManager() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    if (editingProductId == null) return;
+    const id = requestAnimationFrame(() => {
+      productFormAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [editingProductId]);
+
+  async function uploadProductCatalogImage(file: File) {
+    setUploadingProductImage(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await fetch("/api/admin/boutique/upload-image", { method: "POST", body: formData });
+    const json = await res.json();
+    setUploadingProductImage(false);
+    if (!res.ok || !json.success) {
+      setFeedback(json.message ?? "Upload image impossible.");
+      return;
+    }
+    setProductForm((prev) => ({ ...prev, imageUrl: json.data.url as string }));
+    setFeedback("Image enregistrée dans le formulaire — cliquez sur « Modifier le produit » pour sauvegarder.");
+  }
+
   async function submitProduct() {
     if (!productForm.nom || productForm.nom.trim().length < 2) {
       setFeedback("Le nom du produit doit contenir au moins 2 caractères.");
@@ -71,10 +100,16 @@ export function AdminCatalogManager() {
     const isEdit = editingProductId !== null;
     const url = isEdit ? `/api/admin/products/${editingProductId}` : "/api/admin/products";
     const method = isEdit ? "PATCH" : "POST";
+    const payload = {
+      ...productForm,
+      prixInitial: productForm.prixInitial === "" ? null : productForm.prixInitial,
+      imageUrl: productForm.imageUrl.trim() === "" ? null : productForm.imageUrl.trim()
+    };
     const res = await fetch(url, {
       method,
+      credentials: "same-origin",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productForm)
+      body: JSON.stringify(payload)
     });
     const data = await res.json();
     if (!res.ok || !data.success) {
@@ -113,7 +148,7 @@ export function AdminCatalogManager() {
 
   async function deleteProduct(id: number) {
     if (!confirm("Supprimer ce produit ?")) return;
-    const res = await fetch(`/api/admin/products/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/admin/products/${id}`, { method: "DELETE", credentials: "same-origin" });
     const data = await res.json();
     if (!res.ok || !data.success) {
       setFeedback(data.message ?? "Suppression impossible.");
@@ -138,7 +173,13 @@ export function AdminCatalogManager() {
   return (
     <div className="space-y-8">
       <section className="rounded-2xl border border-slate-200 p-5">
+        <div ref={productFormAnchorRef} className="scroll-mt-24" aria-hidden />
         <h2 className="font-heading text-xl font-bold text-haitechBlue">Produits (Business Center / Boutique IT)</h2>
+        {editingProductId != null ? (
+          <p className="mt-2 rounded-lg border border-haitechGold/40 bg-amber-50 px-3 py-2 text-sm text-slate-800">
+            Édition du produit n°{editingProductId} — les champs ci-dessous sont préremplis ; faites défiler si besoin, modifiez puis enregistrez.
+          </p>
+        ) : null}
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           <input
             value={productForm.nom}
@@ -153,6 +194,19 @@ export function AdminCatalogManager() {
             onChange={(e) => setProductForm((prev) => ({ ...prev, prixBase: Number(e.target.value) }))}
             className="rounded border p-3"
             placeholder="Prix de base"
+          />
+          <input
+            type="number"
+            min={0}
+            value={productForm.prixInitial}
+            onChange={(e) =>
+              setProductForm((prev) => ({
+                ...prev,
+                prixInitial: e.target.value === "" ? "" : Number(e.target.value)
+              }))
+            }
+            className="rounded border p-3"
+            placeholder="Prix initial (optionnel)"
           />
           <select
             value={productForm.categorie}
@@ -178,6 +232,30 @@ export function AdminCatalogManager() {
             className="rounded border p-3 md:col-span-2"
             placeholder="Description"
           />
+          <label className="block md:col-span-2">
+            <span className="text-xs font-semibold text-slate-600">Image (URL ou fichier)</span>
+            <input
+              value={productForm.imageUrl}
+              onChange={(e) => setProductForm((prev) => ({ ...prev, imageUrl: e.target.value }))}
+              className="mt-1 w-full rounded border p-3"
+              placeholder="/uploads/boutique/… ou URL"
+            />
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              disabled={uploadingProductImage}
+              className="mt-2 block text-sm"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) void uploadProductCatalogImage(f);
+                e.target.value = "";
+              }}
+            />
+            {uploadingProductImage ? <span className="mt-1 block text-xs text-slate-500">Envoi en cours…</span> : null}
+            {productForm.imageUrl.trim() ? (
+              <span className="mt-2 block text-xs text-slate-500">Aperçu : {productForm.imageUrl.trim()}</span>
+            ) : null}
+          </label>
         </div>
         <div className="mt-4 flex gap-3">
           <button onClick={submitProduct} className="rounded-full bg-haitechBlue px-5 py-2 font-semibold text-white">
@@ -202,6 +280,7 @@ export function AdminCatalogManager() {
                 <th className="px-3 py-2">Nom</th>
                 <th className="px-3 py-2">Catégorie</th>
                 <th className="px-3 py-2">Prix</th>
+                <th className="px-3 py-2">Prix initial</th>
                 <th className="px-3 py-2">Actif</th>
                 <th className="px-3 py-2">Actions</th>
               </tr>
@@ -212,18 +291,25 @@ export function AdminCatalogManager() {
                   <td className="px-3 py-2">{p.nom}</td>
                   <td className="px-3 py-2">{p.categorie}</td>
                   <td className="px-3 py-2">{Number(p.prix_base).toLocaleString("fr-FR")} FCFA</td>
+                  <td className="px-3 py-2">
+                    {p.prix_initial == null ? "-" : `${Number(p.prix_initial).toLocaleString("fr-FR")} FCFA`}
+                  </td>
                   <td className="px-3 py-2">{p.actif ? "Oui" : "Non"}</td>
                   <td className="px-3 py-2">
                     <div className="flex gap-2">
                       <button
+                        type="button"
                         className="rounded border px-3 py-1"
                         onClick={() => {
+                          setFeedback("");
                           setEditingProductId(p.id);
                           setProductForm({
                             nom: p.nom,
                             description: p.description ?? "",
                             categorie: p.categorie,
                             prixBase: Number(p.prix_base),
+                            prixInitial: p.prix_initial == null ? "" : Number(p.prix_initial),
+                            imageUrl: p.image_url?.trim() ?? "",
                             actif: Boolean(p.actif)
                           });
                         }}

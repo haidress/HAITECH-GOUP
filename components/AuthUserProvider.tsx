@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
 
 export type AuthUser = {
   role: "admin" | "client" | "etudiant" | "technicien";
@@ -31,7 +30,6 @@ async function fetchCurrentUser(): Promise<AuthUser> {
 }
 
 export function AuthUserProvider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
   const [user, setUser] = useState<AuthUser>(null);
   const [loading, setLoading] = useState(true);
 
@@ -46,9 +44,10 @@ export function AuthUserProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  /* Ne pas re-déclencher sur chaque pathname : chaque navigation refaisait un GET /api/auth/me + hit DB, très pénalisant. */
   useEffect(() => {
-    refreshUser();
-  }, [refreshUser, pathname]);
+    void refreshUser();
+  }, [refreshUser]);
 
   useEffect(() => {
     function onAuthChanged() {

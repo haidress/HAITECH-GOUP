@@ -2,11 +2,6 @@
 
 export const homeTestimonials = [
   {
-    quote: "HAITECH GROUP a complètement transformé notre présence en ligne. Site professionnel, rapide et efficace.",
-    author: "PDG SA2I HOLDING, Abidjan",
-    stars: "⭐⭐⭐⭐⭐"
-  },
-  {
     quote: "Service très sérieux et réactif. Je recommande pour tous vos besoins en informatique.",
     author: "PDG ANYAMA IMMOBILIER",
     stars: "⭐⭐⭐⭐⭐"
@@ -14,6 +9,11 @@ export const homeTestimonials = [
   {
     quote: "Formation très pratique et facile à comprendre. J’ai pu lancer mon activité grâce à eux.",
     author: "Marc Allou, Apprenant HAITECH Academy",
+    stars: "⭐⭐⭐⭐⭐"
+  },
+  {
+    quote: "HAITECH GROUP a renforcé notre image de marque avec des visuels attractifs et un rendu professionnel sur tous nos supports.",
+    author: "PDG SA2I HOLDING, Abidjan",
     stars: "⭐⭐⭐⭐⭐"
   }
 ];

@@ -1,8 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap");
+/* Polices chargées via next/font dans app/layout.tsx (évite le @import bloquant). */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply rounded-full bg-haitechBlue px-6 py-3 font-semibold text-white transition hover:bg-haitechBlue/90 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-secondary {
+    @apply rounded-full border border-haitechBlue px-6 py-3 font-semibold text-haitechBlue transition hover:bg-haitechBlue/5;
+  }
+
+  .form-input {
+    @apply w-full rounded-lg border border-slate-300 px-3 py-3 text-slate-900 placeholder:text-slate-400 focus:border-haitechBlue focus:outline-none focus:ring-2 focus:ring-haitechBlue/20;
+  }
+
+  .surface-card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+}
 
 :root {
   --background: #ffffff;
@@ -12,7 +30,15 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Poppins", sans-serif;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #0a2a5e;
+  outline-offset: 2px;
 }
 
 .hero-gradient {
@@ -27,9 +53,17 @@ body {
   background-attachment: scroll;
 }
 
+.academy-hero-parallax {
+  background-attachment: scroll;
+}
+
 @media (min-width: 769px) {
   .hero-living-bg {
     background-attachment: local;
+  }
+
+  .academy-hero-parallax {
+    background-attachment: fixed;
   }
 }
 
@@ -47,12 +81,12 @@ body {
   background-image: linear-gradient(rgba(10, 42, 94, 0.8), rgba(10, 42, 94, 0.8)), url("/parallax-main.jpg");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  /* fixed = repaints coûteux au scroll ; scroll garde le rendu proche sans jank */
+  background-attachment: scroll;
 }
 
 @media (max-width: 768px) {
   .parallax-section {
-    background-attachment: scroll;
     background-position: center top;
   }
 }

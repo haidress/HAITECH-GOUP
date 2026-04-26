@@ -1,0 +1,26 @@
+# Relances e-mail automatiques (leads « nouveau » créés il y a ≥ 2 jours).
+# Secrets : HAITECH_SITE_URL, HAITECH_CRON_SECRET (identique à CRON_SECRET en prod).
+
+name: Cron — relances leads
+
+on:
+  schedule:
+    - cron: "20 7 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  lead-followups:
+    runs-on: ubuntu-latest
+    steps:
+      - name: POST /api/cron/lead-followups
+        env:
+          SITE_URL: ${{ secrets.HAITECH_SITE_URL }}
+          CRON_SECRET: ${{ secrets.HAITECH_CRON_SECRET }}
+        run: |
+          if [ -z "$SITE_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "::warning::Définissez les secrets HAITECH_SITE_URL et HAITECH_CRON_SECRET pour activer ce cron."
+            exit 0
+          fi
+          curl -sfS -X POST "${SITE_URL%/}/api/cron/lead-followups" \
+            -H "Authorization: Bearer ${CRON_SECRET}" \
+            -H "Content-Type: application/json"

@@ -21,16 +21,204 @@ export type BoutiqueRayon = {
 };
 
 export const boutiqueItRayons: BoutiqueRayon[] = [
-  { label: "PC & portables", icon: "💻", keywords: ["pc", "portable", "laptop", "ordinateur", "notebook"], blurb: "Postes fixes, portables, stations compactes." },
-  { label: "Écrans & bureaux", icon: "🖥️", keywords: ["écran", "ecran", "moniteur", "docking", "dock"], blurb: "Moniteurs, supports, stations d’accueil." },
-  { label: "Réseau & Wi‑Fi", icon: "📶", keywords: ["routeur", "switch", "wifi", "cpl", "firewall"], blurb: "Connectivité pro et particulier." },
-  { label: "Stockage", icon: "💾", keywords: ["ssd", "disque", "hdd", "nas", "usb", "clé"], blurb: "SSD, disques externes, NAS, clés USB." },
-  { label: "Périphériques", icon: "🖱️", keywords: ["souris", "clavier", "webcam", "casque", "micro"], blurb: "Souris, claviers, audio, visioconférence." },
-  { label: "Alimentation & onduleur", icon: "🔌", keywords: ["chargeur", "câble", "onduleur", "batterie", "power"], blurb: "Chargeurs, câbles, onduleurs, batteries." },
-  { label: "Impression", icon: "🖨️", keywords: ["imprimante", "toner", "encre", "scanner"], blurb: "Imprimantes et consommables." },
-  { label: "Sécurité physique", icon: "🔒", keywords: ["cadenas", "antivol", "rack"], blurb: "Antivols, organisation baie." },
-  { label: "Composants", icon: "⚙️", keywords: ["ram", "mémoire", "barrette", "carte", "ventilateur"], blurb: "RAM, cartes, refroidissement." },
-  { label: "Mobilité & sacs", icon: "🎒", keywords: ["sac", "sacoche", "hub", "adaptateur"], blurb: "Sacs, hubs USB‑C, adaptateurs voyage." }
+  {
+    label: "Ordinateurs",
+    icon: "💻",
+    keywords: [
+      "pc",
+      "portable",
+      "laptop",
+      "ordinateur",
+      "notebook",
+      "elitebook",
+      "latitude",
+      "thinkpad",
+      "probook",
+      "desktop",
+      "bureau",
+      "workstation",
+      "precision",
+      "thinkcentre",
+      "elitedesk",
+      "290 g9",
+      "pro 290",
+      "intel nuc",
+      "nuc",
+      "gamer",
+      "gaming",
+      "tuf",
+      "rog",
+      "strix",
+      "rtx",
+      "ryzen",
+      "core i5",
+      "core i7",
+      "core i9"
+    ],
+    blurb: "PC portables reconditionnés et professionnels."
+  },
+  {
+    label: "Écrans & bureaux",
+    icon: "🖥️",
+    keywords: [
+      "écran",
+      "ecran",
+      "moniteur",
+      "monitor",
+      "docking",
+      "dock",
+      "samsung",
+      "odyssey",
+      "ultragear",
+      "ultrawide",
+      "msi",
+      "lg",
+      "lenovo l24e",
+      "lenovo l27e",
+      "incurvé",
+      "240 hz",
+      "144 hz",
+      "180 hz"
+    ],
+    blurb: "Moniteurs et accessoires de poste de travail."
+  },
+  {
+    label: "Réseau & Wi‑Fi",
+    icon: "📶",
+    keywords: [
+      "routeur",
+      "switch",
+      "wifi",
+      "wi-fi",
+      "répéteur",
+      "repeteur",
+      "rj45",
+      "clé wifi",
+      "firewall",
+      "ethernet",
+      "d-link",
+      "dlink",
+      "linksys",
+      "mikrotik",
+      "mercusys",
+      "deco",
+      "mesh",
+      "plc",
+      "cpl",
+      "antenne",
+      "ftp cat",
+      "cat6",
+      "cat5",
+      "connecteur rj45",
+      "pince",
+      "testeur",
+      "adaptateur ethernet"
+    ],
+    blurb: "Connectivité, Wi-Fi et équipements réseau."
+  },
+  {
+    label: "Stockage & USB",
+    icon: "💾",
+    keywords: [
+      "ssd",
+      "disque",
+      "hdd",
+      "nas",
+      "usb",
+      "clé",
+      "stockage",
+      "nvme",
+      "m.2",
+      "crucial",
+      "kingston",
+      "lexar",
+      "wd blue",
+      "verbatim",
+      "emtec",
+      "pcie 4",
+      "pcie 5"
+    ],
+    blurb: "SSD, disques externes et clés USB."
+  },
+  {
+    label: "Périphériques & audio",
+    icon: "🖱️",
+    keywords: ["souris", "clavier", "webcam", "casque", "micro", "headset", "marshall", "soundcore"],
+    blurb: "Claviers, souris, webcams et casques."
+  },
+  {
+    label: "Chargeurs & batteries",
+    icon: "🔌",
+    keywords: [
+      "chargeur",
+      "adaptateur",
+      "secteur",
+      "batterie",
+      "magsafe",
+      "surface",
+      "hp 19.5v",
+      "dell 19.5v",
+      "asus",
+      "lenovo",
+      "msi",
+      "gamer",
+      "gaming",
+      "usb-c",
+      "type c",
+      "type-c",
+      "pd",
+      "100w",
+      "180w",
+      "230w",
+      "240w",
+      "280w"
+    ],
+    blurb: "Chargeurs compatibles, batteries et alimentation."
+  },
+  {
+    label: "Énergie & protection",
+    icon: "⚡",
+    keywords: ["onduleur", "powerbank", "parafoudre", "multiprise", "protection"],
+    blurb: "Onduleurs, powerbanks et protection électrique."
+  },
+  {
+    label: "Impression & consommables",
+    icon: "🖨️",
+    keywords: ["imprimante", "toner", "encre", "cartouche", "hp 652", "hp 903", "hp 305"],
+    blurb: "Imprimantes, cartouches et consommables."
+  },
+  {
+    label: "Composants",
+    icon: "⚙️",
+    keywords: [
+      "ram",
+      "mémoire",
+      "barrette",
+      "memoire",
+      "carte",
+      "ventilateur",
+      "ddr4",
+      "ddr5",
+      "alimentation",
+      "power supply",
+      "thermalright",
+      "wjcoolman",
+      "aerocool",
+      "80 plus",
+      "pcie",
+      "nvme",
+      "disque serveur",
+      "sas",
+      "hpe"
+    ],
+    blurb: "Mémoire et composants matériels."
+  },
+  {
+    label: "Hubs & connectique",
+    icon: "🔗",
+    keywords: ["hub", "adaptateur", "displayport", "hdmi", "usb-c", "câble", "cable"],
+    blurb: "Hubs USB-C, câbles et adaptateurs."
+  }
 ];
 
 export const boutiqueItBundles = [
@@ -89,6 +277,10 @@ export type CatalogFormation = {
   duration: string;
   price: number;
   image: string;
+  summary?: string;
+  weeklyHours?: string;
+  eveningClasses?: boolean;
+  brochureUrl?: string;
   badge?: "🔥 Populaire" | "⭐ Recommandé" | "💰 Accessible" | "🎓 Certifiant";
   outcomes?: string[];
 };
@@ -219,16 +411,292 @@ export const academyCatalogFormations: CatalogFormation[] = [
     duration: "4 semaines",
     price: 75_000,
     image: "/slide-transformation.png"
+  },
+  {
+    name: "Introduction à l'intelligence artificielle",
+    category: "Outils digitaux & IA",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "8 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 85_000,
+    image: "/slide-transformation.png",
+    badge: "⭐ Recommandé",
+    outcomes: ["Comprendre les fondamentaux IA", "Manipuler des outils IA actuels", "Identifier des cas d'usage métier"]
+  },
+  {
+    name: "Formation Réseaux Sociaux",
+    category: "Entrepreneuriat",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "4 semaines",
+    weeklyHours: "4 heures / semaine",
+    eveningClasses: true,
+    price: 40_000,
+    image: "/slide-business.png",
+    summary:
+      "Elève ta carrière avec notre formation professionnelle en Réseaux Sociaux. En 12 semaines, deviens un spécialiste de la communication digitale et maîtrise la création et la gestion de campagnes efficaces sur les réseaux sociaux.",
+    brochureUrl: "/contact",
+    badge: "🔥 Populaire",
+    outcomes: ["Créer une stratégie éditoriale", "Piloter des campagnes social media", "Analyser la performance et ajuster"]
+  },
+  {
+    name: "L’IA pour les entrepreneurs",
+    category: "Entrepreneuriat",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "6 semaines",
+    weeklyHours: "3 heures / semaine",
+    price: 70_000,
+    image: "/slide-business.png",
+    badge: "⭐ Recommandé",
+    outcomes: ["Automatiser des tâches répétitives", "Produire du contenu rapidement", "Améliorer la productivité commerciale"]
+  },
+  {
+    name: "Formation Développement Web",
+    category: "Développement web",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "12 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 129_000,
+    image: "/slide-sites.png",
+    badge: "🔥 Populaire",
+    outcomes: ["Maîtriser HTML/CSS/JavaScript", "Publier un site complet", "Utiliser Git/GitHub en équipe"]
+  },
+  {
+    name: "UX & UI Design",
+    category: "Infographie & design",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "10 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 110_000,
+    image: "/slide-visuel.png",
+    badge: "⭐ Recommandé",
+    outcomes: ["Concevoir des interfaces intuitives", "Réaliser des wireframes/prototypes", "Tester l'expérience utilisateur"]
+  },
+  {
+    name: "Graphic Design",
+    category: "Infographie & design",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "8 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 90_000,
+    image: "/slide-visuel.png",
+    outcomes: ["Créer une identité visuelle", "Utiliser les outils Adobe principaux", "Produire des supports social media"]
+  },
+  {
+    name: "Montage Vidéo : De Capcut à Adobe Premiere",
+    category: "Infographie & design",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "6 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 85_000,
+    image: "/slide-3.jpg",
+    outcomes: ["Monter des vidéos engageantes", "Gérer transitions/effets/son", "Exporter au bon format selon plateforme"]
+  },
+  {
+    name: "Formation e-commerce",
+    category: "Entrepreneuriat",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "8 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 95_000,
+    image: "/slide-business.png",
+    outcomes: ["Structurer un catalogue en ligne", "Configurer acquisition et conversion", "Suivre les KPI ventes"]
+  },
+  {
+    name: "Introduction to Cybersecurity",
+    category: "Cybersécurité & réseau",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "6 semaines",
+    weeklyHours: "3 heures / semaine",
+    price: 65_000,
+    image: "/slide-transformation.png",
+    outcomes: ["Identifier les menaces courantes", "Mettre en place les protections de base", "Appliquer les bonnes pratiques équipe"]
+  },
+  {
+    name: "Introduction au Design Graphique",
+    category: "Infographie & design",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "6 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 60_000,
+    image: "/slide-visuel.png",
+    outcomes: ["Comprendre les fondamentaux visuels", "Créer des compositions efficaces", "Préparer des visuels pour impression et web"]
+  },
+  {
+    name: "Formation Bureautique",
+    category: "Bureautique & productivité",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "6 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 45_000,
+    image: "/slide-support.png",
+    badge: "💰 Accessible",
+    outcomes: ["Maîtriser Word/Excel/PowerPoint", "Produire des documents pro", "Gagner du temps avec les raccourcis et modèles"]
+  },
+  {
+    name: "Front End Developer – React JS",
+    category: "Développement web",
+    level: "Avancé",
+    format: "Présentiel / Visio",
+    duration: "12 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 150_000,
+    image: "/slide-sites.png",
+    badge: "🎓 Certifiant",
+    outcomes: ["Créer des interfaces React modernes", "Gérer état et navigation", "Déployer un front-end professionnel"]
+  },
+  {
+    name: "Développement d'application et intégration de solutions",
+    category: "Développement web",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "10 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 120_000,
+    image: "/slide-sites.png",
+    summary:
+      "Formation pratique orientée projet pour concevoir des applications utiles et intégrer des solutions digitales en contexte professionnel.",
+    outcomes: ["Concevoir une application métier", "Intégrer des API et outils externes", "Livrer un prototype exploitable"]
+  },
+  {
+    name: "Marketing digital et stratégie de communication",
+    category: "Entrepreneuriat",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "8 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 75_000,
+    image: "/slide-business.png",
+    summary:
+      "Formation pratique en marketing digital pour capter des clients sur internet et structurer une stratégie de communication performante.",
+    outcomes: ["Construire un plan de communication", "Lancer des campagnes performantes", "Mesurer et optimiser les résultats"]
+  },
+  {
+    name: "Infographie professionnelle (visuels & vidéos)",
+    category: "Infographie & design",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "8 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 90_000,
+    image: "/slide-visuel.png",
+    summary:
+      "Apprenez à produire des visuels et vidéos professionnels avec une approche orientée cas pratiques et projets réels.",
+    outcomes: ["Créer des visuels de marque", "Monter des contenus vidéo attractifs", "Standardiser une identité visuelle"]
+  },
+  {
+    name: "Microsoft Office avancé (Word, Excel, PowerPoint)",
+    category: "Bureautique & productivité",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "6 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 50_000,
+    image: "/slide-support.png",
+    badge: "💰 Accessible",
+    summary:
+      "Formation complète sur les outils Office essentiels pour gagner en efficacité sur les documents, calculs et présentations.",
+    outcomes: ["Automatiser les tâches bureautiques", "Créer des présentations percutantes", "Produire des rapports professionnels"]
+  },
+  {
+    name: "Réseaux informatiques pratiques",
+    category: "Cybersécurité & réseau",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "8 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 85_000,
+    image: "/slide-transformation.png",
+    summary:
+      "Maîtrisez les bases et pratiques du métier réseau pour intervenir sur des environnements LAN/Wi-Fi et dépannage terrain.",
+    outcomes: ["Configurer un réseau local", "Diagnostiquer les pannes courantes", "Appliquer les bonnes pratiques d'exploitation"]
+  },
+  {
+    name: "Logiciels métiers (comptabilité, gestion, activité)",
+    category: "Informatique",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "6 semaines",
+    weeklyHours: "3 heures / semaine",
+    price: 65_000,
+    image: "/slide-business.png",
+    summary:
+      "Prenez en main les logiciels métiers de votre secteur avec des cas pratiques pour devenir autonome rapidement.",
+    outcomes: ["Utiliser un logiciel métier efficacement", "Structurer un flux de travail opérationnel", "Produire des livrables fiables"]
+  },
+  {
+    name: "Sécurité informatique (hacking éthique & protection)",
+    category: "Cybersécurité & réseau",
+    level: "Intermédiaire",
+    format: "Présentiel / Visio",
+    duration: "8 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 95_000,
+    image: "/slide-transformation.png",
+    summary:
+      "Comprenez les méthodes d'attaque et les protections concrètes pour sécuriser les systèmes et les données de votre organisation.",
+    outcomes: ["Identifier les menaces majeures", "Renforcer la posture de sécurité", "Mettre en place des mesures de protection"]
+  },
+  {
+    name: "Vidéosurveillance et sécurité électronique",
+    category: "Cybersécurité & réseau",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "6 semaines",
+    weeklyHours: "4 heures / semaine",
+    price: 80_000,
+    image: "/slide-1.jpg",
+    summary:
+      "Formation métier pour installer et exploiter des solutions de vidéosurveillance dans les contextes résidentiels et professionnels.",
+    outcomes: ["Installer une architecture de base", "Configurer les équipements essentiels", "Assurer le suivi et la maintenance"]
+  },
+  {
+    name: "Initiation à l'informatique (fondamentaux)",
+    category: "Informatique",
+    level: "Débutant",
+    format: "Présentiel / Visio",
+    duration: "4 semaines",
+    weeklyHours: "3 heures / semaine",
+    price: 30_000,
+    image: "/slide-support.png",
+    badge: "💰 Accessible",
+    summary:
+      "Parcours d'initiation tout-en-un: ordinateur, internet, navigation prudente et bonnes pratiques d'usage pour bien démarrer.",
+    outcomes: ["Comprendre les composants essentiels", "Naviguer sur internet en sécurité", "Utiliser les outils numériques du quotidien"]
   }
 ];
 
 export const academyEbooks = [
-  { title: "Guide Excel complet", desc: "Formules, TCD, automatisation.", price: 12_000, image: "/slide-support.png" },
-  { title: "Pack Word & PDF pro", desc: "Mise en page longue durée, styles, sommaires.", price: 9_000, image: "/slide-2.jpg" },
-  { title: "Lancer son activité (0 → 1)", desc: "Étude marché light, offre, canaux.", price: 15_000, image: "/slide-business.png" },
-  { title: "Pack CV & entretien", desc: "Templates + méthode STAR.", price: 8_000, image: "/slide-3.jpg" },
-  { title: "Cybersécurité TPE", desc: "Checklist MFA, sauvegardes, phishing.", price: 11_000, image: "/slide-transformation.png" },
-  { title: "Introduction Git & GitHub", desc: "Branches, PR, bonnes habitudes.", price: 14_000, image: "/slide-sites.png" }
+  { title: "Guide Excel complet", desc: "Formules, TCD, automatisation.", price: 10_000, image: "/slide-support.png", file: "/ebooks/guide-excel-complet.pdf" },
+  { title: "Pack Word & PDF pro", desc: "Mise en page longue durée, styles, sommaires.", price: 9_000, image: "/slide-2.jpg", file: "/ebooks/pack-word-pdf-pro.pdf" },
+  { title: "Lancer son activité (0 → 1)", desc: "Étude de marché, offre et canaux.", price: 8_000, image: "/slide-business.png", file: "/ebooks/lancer-son-activite.pdf" },
+  { title: "Pack CV & entretien", desc: "Templates + méthode STAR.", price: 7_000, image: "/slide-3.jpg", file: "/ebooks/pack-cv-entretien.pdf" },
+  { title: "Cybersécurité TPE", desc: "Checklist MFA, sauvegardes, phishing.", price: 9_000, image: "/slide-transformation.png", file: "/ebooks/cybersecurite-tpe.pdf" },
+  { title: "Introduction Git & GitHub", desc: "Branches, PR, bonnes habitudes.", price: 8_000, image: "/slide-sites.png", file: "/ebooks/introduction-git-github.pdf" },
+  { title: "Canva Express", desc: "Créer des visuels pros rapidement.", price: 4_000, image: "/slide-visuel.png", file: "/ebooks/canva-express.pdf" },
+  { title: "Prompting IA pratique", desc: "Prompts utiles pour business et productivité.", price: 6_000, image: "/slide-transformation.png", file: "/ebooks/prompting-ia-pratique.pdf" },
+  { title: "Mini guide PowerPoint impact", desc: "Structurer des slides claires et convaincantes.", price: 5_000, image: "/slide-2.jpg", file: "/ebooks/mini-guide-powerpoint-impact.pdf" },
+  { title: "Tableaux de bord Excel PME", desc: "KPI essentiels et suivi mensuel.", price: 10_000, image: "/slide-support.png", file: "/ebooks/tableaux-bord-excel-pme.pdf" },
+  { title: "Guide prospection WhatsApp", desc: "Scripts de messages et relances.", price: 3_000, image: "/slide-business.png", file: "/ebooks/guide-prospection-whatsapp.pdf" },
+  { title: "Bases du design graphique", desc: "Couleurs, typographie et composition.", price: 6_000, image: "/slide-visuel.png", file: "/ebooks/bases-design-graphique.pdf" },
+  { title: "Checklist e-commerce local", desc: "Étapes pour lancer une boutique rentable.", price: 4_000, image: "/slide-business.png", file: "/ebooks/checklist-ecommerce-local.pdf" },
+  { title: "Pack productivité étudiant", desc: "Méthodes et outils pour gagner du temps.", price: 2_000, image: "/slide-support.png", file: "/ebooks/pack-productivite-etudiant.pdf" },
+  { title: "Cyber hygiène personnelle", desc: "Protéger ses comptes et appareils.", price: 2_500, image: "/slide-transformation.png", file: "/ebooks/cyber-hygiene-personnelle.pdf" },
+  { title: "Notion pour débutants", desc: "Organiser notes, tâches et projets.", price: 5_500, image: "/slide-business.png", file: "/ebooks/notion-pour-debutants.pdf" },
+  { title: "Guide branding personnel", desc: "Positionner son image professionnelle.", price: 7_500, image: "/slide-visuel.png", file: "/ebooks/guide-branding-personnel.pdf" },
+  { title: "Email pro efficace", desc: "Rédaction, structure et bonnes pratiques.", price: 3_500, image: "/slide-support.png", file: "/ebooks/email-pro-efficace.pdf" },
+  { title: "Mini manuel SEO local", desc: "Référencer son activité en local.", price: 6_500, image: "/slide-sites.png", file: "/ebooks/mini-manuel-seo-local.pdf" },
+  { title: "Gestion financière simple", desc: "Budget, marge et suivi de trésorerie.", price: 8_500, image: "/slide-business.png", file: "/ebooks/gestion-financiere-simple.pdf" }
 ];
 
 export type AcademyFilterLabel = CatalogFormation["category"] | "Tous";
@@ -387,31 +855,45 @@ export type ItManagedTier = {
 
 export const itManagedTiers: ItManagedTier[] = [
   {
-    name: "Essentiel",
-    audience: "TPE / indépendants",
-    fromPricePerPosteFcfa: 25_000,
-    highlights: ["Antivirus géré", "Sauvegarde poste de base", "Support 5j/7 heures ouvrées", "Patchs mensuels"],
-    sla: "Première réponse sous 8h ouvrées (visée)"
+    name: "Starter",
+    audience: "Indépendants et petites structures",
+    fromPricePerPosteFcfa: 20_000,
+    highlights: [
+      "Maintenance préventive (2 passages / mois)",
+      "Dépannage à distance",
+      "Mises à jour et sécurité de base",
+      "Sauvegarde simple des postes",
+      "Assistance utilisateurs"
+    ],
+    sla: "Temps de réponse < 8h"
   },
   {
-    name: "Performance",
-    audience: "PME 5–50 postes",
+    name: "Pro",
+    audience: "PME en croissance",
     fromPricePerPosteFcfa: 45_000,
-    highlights: ["Tout Essentiel", "Supervision santé machines", "M365 léger (conseil + run)", "Heures d’intervention incl."],
-    sla: "Première réponse sous 4h ouvrées (visée)"
+    highlights: [
+      "Tout le pack Starter",
+      "Supervision des postes",
+      "Maintenance proactive",
+      "Gestion Microsoft 365 (niveau basique)",
+      "Heures d’intervention incluses",
+      "Optimisation des performances"
+    ],
+    sla: "Temps de réponse < 4h"
   },
   {
     name: "Premium",
-    audience: "Structures critiques",
+    audience: "Entreprises exigeantes",
     fromPricePerPosteFcfa: 75_000,
     highlights: [
-      "Tout Performance",
-      "Astreinte élargie (option)",
-      "Rapport mensuel",
-      "Comité trimestriel",
-      "Option SOC léger / monitoring 24x7 (sur devis)"
+      "Tout le pack Pro",
+      "Monitoring avancé 24/7 (option)",
+      "Rapport mensuel détaillé",
+      "Comité de suivi trimestriel",
+      "Sécurité renforcée",
+      "Astreinte (option)"
     ],
-    sla: "SLA critique sur devis (HNO possible)"
+    sla: "SLA personnalisé, intervention critique rapide"
   }
 ];
 
@@ -426,150 +908,157 @@ export type ItServicePack = {
 
 export const itServicePacks: ItServicePack[] = [
   {
-    title: "Pack Particulier – Essentiel",
+    title: "Pack Starter – Essentiel",
     badge: "",
-    subtitle: "Support & maintenance IT",
+    subtitle: "💻 Support & maintenance IT",
     audience: "Particuliers, étudiants, freelances",
-    items: ["Assistance à distance", "Dépannage logiciel", "Installation de programmes", "Optimisation PC", "Conseils personnalisés"],
-    fromPriceFcfa: 15_000
+    items: [
+      "👉 Travaillez sans stress au quotidien",
+      "Assistance à distance",
+      "Dépannage logiciel",
+      "Installation de programmes",
+      "Optimisation PC",
+      "Conseils personnalisés"
+    ],
+    fromPriceFcfa: 10_000
   },
   {
     title: "Pack Pro – PME",
-    badge: "Le plus choisi",
-    subtitle: "Support & maintenance IT",
-    audience: "Startups, PME",
-    items: ["Maintenance régulière", "Support utilisateurs", "Intervention rapide", "Gestion des incidents", "Optimisation réseau"],
-    fromPriceFcfa: 85_000
+    badge: "⭐ Le plus choisi",
+    subtitle: "💻 Support & maintenance IT",
+    audience: "PME, startups",
+    items: [
+      "👉 Votre entreprise fonctionne sans interruption",
+      "Support utilisateurs",
+      "Maintenance régulière",
+      "Intervention rapide",
+      "Gestion des incidents",
+      "Optimisation réseau"
+    ],
+    fromPriceFcfa: 75_000
   },
   {
-    title: "Pack Entreprise – Premium",
-    badge: "Recommandé",
-    subtitle: "Support & maintenance IT",
+    title: "Pack Premium – Entreprise",
+    badge: "",
+    subtitle: "💻 Support & maintenance IT",
     audience: "Entreprises structurées",
-    items: ["Maintenance complète", "Support prioritaire", "Surveillance des systèmes", "Sécurité informatique", "Reporting mensuel"],
-    fromPriceFcfa: 220_000
+    items: [
+      "👉 Zéro panne, sécurité maximale",
+      "Support prioritaire",
+      "Maintenance complète",
+      "Surveillance des systèmes",
+      "Sécurité informatique",
+      "Reporting mensuel"
+    ],
+    fromPriceFcfa: 150_000
   },
   {
     title: "Pack Starter – Lancement",
     badge: "",
-    subtitle: "Identité visuelle",
+    subtitle: "🎨 Identité visuelle",
     audience: "Marques en démarrage",
     items: ["Création de logo", "Palette de couleurs", "Typographie", "2 propositions + retouches"],
-    fromPriceFcfa: 120_000
+    fromPriceFcfa: 60_000
   },
   {
     title: "Pack Standard – Professionnel",
-    badge: "Populaire",
-    subtitle: "Identité visuelle",
+    badge: "⭐",
+    subtitle: "🎨 Identité visuelle",
     audience: "PME, entrepreneurs",
-    items: ["Logo professionnel", "Charte graphique", "Cartes de visite", "Visuels réseaux sociaux", "Déclinaisons du logo"],
-    fromPriceFcfa: 280_000
+    items: ["Logo professionnel", "Charte graphique", "Cartes de visite", "Visuels réseaux sociaux"],
+    fromPriceFcfa: 180_000
   },
   {
     title: "Pack Premium – Branding complet",
     badge: "",
-    subtitle: "Identité visuelle",
+    subtitle: "🎨 Identité visuelle",
     audience: "Entreprises ambitieuses",
-    items: ["Logo + branding complet", "Charte graphique avancée", "Kit réseaux sociaux", "Templates marketing", "Supports print"],
-    fromPriceFcfa: 650_000
+    items: ["Branding complet", "Charte graphique avancée", "Kit réseaux sociaux", "Templates marketing", "Supports print"],
+    fromPriceFcfa: 450_000
   },
   {
     title: "Pack Starter – Présence",
     badge: "",
-    subtitle: "Community management",
+    subtitle: "📱 Community management",
     audience: "Petites structures",
     items: ["Création/optimisation de page", "8 publications/mois", "Design simple", "Programmation"],
-    fromPriceFcfa: 95_000
+    fromPriceFcfa: 50_000
   },
   {
     title: "Pack Growth – Développement",
-    badge: "Le plus choisi",
-    subtitle: "Community management",
+    badge: "⭐",
+    subtitle: "📱 Community management",
     audience: "PME en croissance",
-    items: ["12 à 16 publications/mois", "Visuels professionnels", "Rédaction optimisée", "Gestion interactions", "Stratégie de contenu"],
-    fromPriceFcfa: 185_000
+    items: ["12 à 16 publications", "Visuels professionnels", "Rédaction optimisée", "Gestion des interactions"],
+    fromPriceFcfa: 120_000
   },
   {
     title: "Pack Premium – Domination",
     badge: "",
-    subtitle: "Community management",
+    subtitle: "📱 Community management",
     audience: "Marques ambitieuses",
-    items: ["Publications intensives", "Stratégie marketing complète", "Analyse performances", "Gestion complète interactions", "Campagnes ads (option)"],
-    fromPriceFcfa: 350_000
+    items: ["Publications intensives", "Stratégie marketing complète", "Analyse performances", "Gestion complète"],
+    fromPriceFcfa: 200_000
   },
   {
-    title: "Pack Site vitrine",
+    title: "Site Vitrine",
     badge: "",
-    subtitle: "Développement web",
+    subtitle: "🌐 Développement web",
     audience: "TPE / indépendants",
-    items: ["Design responsive", "5–8 pages", "Formulaire contact", "Hébergement 1 an (option)", "Formation prise en main"],
-    fromPriceFcfa: 450_000
+    items: [
+      "👉 Présentez votre activité en ligne",
+      "🎁 Hébergement offert (1 an)",
+      "Design moderne responsive",
+      "5 à 8 pages",
+      "Formulaire de contact",
+      "Intégration WhatsApp",
+      "Formation prise en main"
+    ],
+    fromPriceFcfa: 200_000
   },
   {
-    title: "Pack E‑commerce starter",
-    badge: "Nouveau",
-    subtitle: "Développement web",
+    title: "Site E-commerce",
+    badge: "",
+    subtitle: "🌐 Développement web",
     audience: "Commerçants",
-    items: ["Catalogue produits", "Paiement mobile money / lien", "Back-office commandes", "SEO de base"],
-    fromPriceFcfa: 950_000
+    items: [
+      "👉 Vendez vos produits en ligne",
+      "🎁 Hébergement offert (1 an)",
+      "Catalogue produits",
+      "Paiement (Mobile Money / lien)",
+      "Gestion des commandes",
+      "Interface admin simple"
+    ],
+    fromPriceFcfa: 300_000
   },
   {
-    title: "Pack Audit cybersécurité express",
+    title: "Site sur mesure",
     badge: "",
-    subtitle: "Cybersécurité",
-    audience: "PME",
-    items: ["Interview direction", "Scan configuration", "Top 10 risques", "Plan d’action 30 jours"],
-    fromPriceFcfa: 380_000
+    subtitle: "🌐 Développement web",
+    audience: "Entreprises et projets spécifiques",
+    items: ["Adapté aux deux autres packs de développement", "Fonctionnalités personnalisées", "Architecture adaptée au besoin métier"],
+    fromPriceFcfa: 400_000
   },
   {
-    title: "Pack MSP « cabinet & professions libérales »",
+    title: "Audit Sécurité Express",
     badge: "",
-    subtitle: "Infogérance sectorielle",
-    audience: "Cabinets médicaux, juridiques, comptables",
-    items: ["Postes sécurisés & sauvegardes", "Messagerie pro & agenda", "Support prioritaire", "Conformité & confidentialité"],
-    fromPriceFcfa: undefined
+    subtitle: "🔐 Cybersécurité",
+    audience: "PME et structures professionnelles",
+    items: ["Analyse de votre système", "Identification des failles", "Top risques", "Plan d’action"],
+    fromPriceFcfa: 250_000
   },
   {
-    title: "Pack MSP « école & formation »",
+    title: "Audit & Diagnostic IT",
     badge: "",
-    subtitle: "Infogérance sectorielle",
-    audience: "Établissements scolaires & CFA",
-    items: ["Wi-Fi élèves / admin séparés", "Postes salles & vidéoprojecteurs", "Filtrage contenu option", "Accompagnement vacances scolaires"],
-    fromPriceFcfa: undefined
-  },
-  {
-    title: "Pack MSP « commerce & retail »",
-    badge: "",
-    subtitle: "Infogérance sectorielle",
-    audience: "Points de vente & franchises",
-    items: ["TPE / caisse & stock", "VPN siège ↔ magasins", "Astreinte ouvertures", "Paiement & réseau sécurisés"],
-    fromPriceFcfa: undefined
-  },
-  {
-    title: "Pack DPO / RGPD starter",
-    badge: "Juridique + IT",
-    subtitle: "Conformité",
-    audience: "PME et associations",
-    items: ["Atelier cadrage", "Registre des traitements modèle", "Politique confidentialité site", "Sensibilisation 1 session"],
-    fromPriceFcfa: 450_000
-  },
-  {
-    title: "Pack Location & financement parc",
-    badge: "Partenaires",
-    subtitle: "Financement",
-    audience: "PME",
-    items: ["Étude TCO", "Mise en relation leasing", "Renouvellement planifié", "Recyclage fin de cycle"],
-    fromPriceFcfa: undefined
+    subtitle: "⚡ Offre bonus",
+    audience: "Toute structure avant investissement IT",
+    items: ["👉 Comprendre vos problèmes avant d’investir", "Analyse rapide", "Recommandations", "Plan d’amélioration"],
+    fromPriceFcfa: 30_000
   }
 ];
 
 export const itAddOns = [
-  "Forfait déplacement Abidjan & périphérie",
-  "Astreinte week-end / jours fériés",
-  "Hébergement & nom de domaine",
-  "Licences Microsoft 365 (revente + run)",
-  "Matériel : commande groupée Boutique IT",
-  "Formation utilisateurs (demi-journée)",
-  "SOC léger / monitoring 24x7 (option Premium)",
-  "Inventaire SAM & rationalisation licences"
+  "Hors matériel",
+  "Hors interventions exceptionnelles",
+  "Hors développements spécifiques"
 ];

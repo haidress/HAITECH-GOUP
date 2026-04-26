@@ -3,6 +3,7 @@ export const publicNavLinks = [
   { href: "/technology", label: "Services informatique" },
   { href: "/academy", label: "Formations" },
   { href: "/boutique-it", label: "Boutique IT" },
+  { href: "/blog", label: "Blog" },
   { href: "/realisations", label: "Réalisations" },
   { href: "/contact", label: "Contact" }
 ];

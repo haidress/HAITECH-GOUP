@@ -9,10 +9,10 @@ export function HomeParcoursBlocks() {
             équipes, avec des packs adaptés TPE / PME.
           </p>
           <ul className="mt-6 grid gap-3 text-sm md:grid-cols-2 md:text-base">
-            <li className="rounded-xl border border-white/20 bg-white/5 px-4 py-3">• Services IT & paliers infogérance</li>
-            <li className="rounded-xl border border-white/20 bg-white/5 px-4 py-3">• Interventions terrain & incidents</li>
-            <li className="rounded-xl border border-white/20 bg-white/5 px-4 py-3">• Formations intra & Academy</li>
-            <li className="rounded-xl border border-white/20 bg-white/5 px-4 py-3">• Business Center pour croissance externe</li>
+            <li className="surface-card border-white/20 bg-white/5 px-4 py-3">• Services IT & paliers infogérance</li>
+            <li className="surface-card border-white/20 bg-white/5 px-4 py-3">• Interventions terrain & incidents</li>
+            <li className="surface-card border-white/20 bg-white/5 px-4 py-3">• Formations intra & Academy</li>
+            <li className="surface-card border-white/20 bg-white/5 px-4 py-3">• Business Center pour croissance externe</li>
           </ul>
         </div>
       </section>
@@ -24,10 +24,10 @@ export function HomeParcoursBlocks() {
             sans jargon inutile.
           </p>
           <ul className="mt-6 grid gap-3 text-sm md:grid-cols-2 md:text-base">
-            <li className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700">• HAITECH Academy & e-learning</li>
-            <li className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700">• Boutique IT & bundles</li>
-            <li className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700">• Support & projets ponctuels</li>
-            <li className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-700">• WhatsApp pour réponses rapides</li>
+            <li className="surface-card px-4 py-3 text-slate-700">• HAITECH Academy & e-learning</li>
+            <li className="surface-card px-4 py-3 text-slate-700">• Boutique IT & bundles</li>
+            <li className="surface-card px-4 py-3 text-slate-700">• Support & projets ponctuels</li>
+            <li className="surface-card px-4 py-3 text-slate-700">• Accompagnement téléphonique personnalisé</li>
           </ul>
         </div>
       </section>

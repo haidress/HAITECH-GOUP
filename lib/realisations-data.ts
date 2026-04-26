@@ -176,8 +176,8 @@ export const realisationCases: RealisationCase[] = [
       "Création de l’identité visuelle (logo, couleurs, univers graphique) et community management : shootings, posts, offres et événements.",
     outcome: "Image de marque alignée sur la qualité culinaire et communauté informée des menus et prestations.",
     excerpt: "Branding et animation des réseaux pour Binome Traiteur.",
-    year: "2024",
-    duration: "Accompagnement continu",
+    year: "2023",
+    duration: "Depuis 2023 (accompagnement continu)",
     stack: ["Identité visuelle", "Community management", "Photographie / visuels", "Réseaux sociaux"],
     highlights: [
       "Univers visuel « food » cohérent avec le positionnement",
@@ -258,8 +258,9 @@ export const realisationTemoignages = [
     stars: "⭐⭐⭐⭐⭐"
   },
   {
-    quote: "HAITECH GROUP a complètement transformé notre présence en ligne. Site professionnel, rapide et efficace.",
-    author: "PDG SA2I HOLDING, Abidjan",
+    quote:
+      "Depuis 2023, HAITECH GROUP nous accompagne avec régularité sur notre image et nos réseaux. Les résultats sont concrets et la communication est professionnelle.",
+    author: "Direction Binome Traiteur",
     stars: "⭐⭐⭐⭐⭐"
   },
   {

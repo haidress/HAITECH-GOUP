@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { getDbPool } from "@/lib/db";
 import { leadSchema } from "@/lib/lead-schema";
-import { listLeads, type LeadSource, type LeadStatus } from "@/lib/leads";
+import { createLeadWithDedup, listLeads, type LeadSource, type LeadStatus } from "@/lib/leads";
 import { isAdminAuthenticated } from "@/lib/admin-guard";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimitSmart } from "@/lib/rate-limit";
 import { ensureSameOrigin } from "@/lib/request-security";
+import { incrementMetric, logApiCompletion, nowMs } from "@/lib/observability";
 
 function isLeadStatus(value: string): value is LeadStatus {
   return ["nouveau", "qualifie", "converti", "perdu"].includes(value);
@@ -40,11 +40,18 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const startedAt = nowMs();
+  incrementMetric("api_requests_total");
   const originGuard = ensureSameOrigin(request);
-  if (originGuard) return originGuard;
+  if (originGuard) {
+    logApiCompletion({ route: "/api/leads", method: "POST", status: originGuard.status, startedAt });
+    return originGuard;
+  }
 
-  const rate = checkRateLimit(request, "public-leads", 8, 60_000);
+  const rate = await checkRateLimitSmart(request, "public-leads", 8, 60_000);
   if (!rate.ok) {
+    incrementMetric("api_errors_total");
+    logApiCompletion({ route: "/api/leads", method: "POST", status: 429, startedAt });
     return NextResponse.json(
       { success: false, message: `Trop de soumissions. Réessayez dans ${rate.retryAfterSec}s.` },
       { status: 429 }
@@ -56,6 +63,8 @@ export async function POST(request: Request) {
     const parsed = leadSchema.safeParse(payload);
 
     if (!parsed.success) {
+      incrementMetric("api_errors_total");
+      logApiCompletion({ route: "/api/leads", method: "POST", status: 400, startedAt });
       return NextResponse.json(
         {
           success: false,
@@ -67,22 +76,25 @@ export async function POST(request: Request) {
     }
 
     const { nom, email, telephone, source, besoin, budget } = parsed.data;
-    const pool = getDbPool();
 
-    await pool.execute(
-      `
-      INSERT INTO leads (nom, email, telephone, source, besoin, budget, statut)
-      VALUES (?, ?, ?, ?, ?, ?, 'nouveau')
-      `,
-      [nom, email, telephone ?? null, source, besoin, budget ?? null]
-    );
+    await createLeadWithDedup({
+      nom,
+      email,
+      telephone: telephone ?? null,
+      source,
+      besoin,
+      budget: budget ?? null
+    });
 
+    logApiCompletion({ route: "/api/leads", method: "POST", status: 200, startedAt });
     return NextResponse.json({
       success: true,
       message: "Votre demande a bien été enregistrée."
     });
   } catch (error) {
     console.error("Erreur API leads:", error);
+    incrementMetric("api_errors_total");
+    logApiCompletion({ route: "/api/leads", method: "POST", status: 500, startedAt });
     return NextResponse.json(
       {
         success: false,

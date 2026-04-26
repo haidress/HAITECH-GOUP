@@ -12,6 +12,7 @@ type Profile = {
 export function ProfileForm() {
   const [profile, setProfile] = useState<Profile>({ nom: "", prenom: "", email: "", telephone: "" });
   const [feedback, setFeedback] = useState("");
+  const [rightsMsg, setRightsMsg] = useState("");
 
   useEffect(() => {
     fetch("/api/profile")
@@ -65,6 +66,65 @@ export function ProfileForm() {
         Enregistrer
       </button>
       {feedback ? <p className="text-sm text-slate-700">{feedback}</p> : null}
+
+      <div className="mt-8 border-t border-slate-200 pt-6">
+        <h2 className="font-heading text-lg font-bold text-haitechBlue">Données personnelles</h2>
+        <p className="mt-1 text-xs text-slate-600">
+          Export JSON de votre compte, commandes liées à votre e-mail et fiche client. Anonymisation : le compte est
+          désactivé et les données directes effacées (les comptes admin passent par un autre processus).
+        </p>
+        {rightsMsg ? <p className="mt-2 text-sm text-slate-700">{rightsMsg}</p> : null}
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            className="rounded-full border border-haitechBlue px-4 py-2 text-sm font-semibold text-haitechBlue"
+            onClick={async () => {
+              setRightsMsg("");
+              const res = await fetch("/api/profile/data-export");
+              const data = await res.json();
+              if (!res.ok || !data.success) {
+                setRightsMsg(data.message ?? "Export impossible.");
+                return;
+              }
+              const blob = new Blob([JSON.stringify(data.data, null, 2)], { type: "application/json" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = `haitech-export-${new Date().toISOString().slice(0, 10)}.json`;
+              a.click();
+              URL.revokeObjectURL(url);
+              setRightsMsg("Fichier téléchargé.");
+            }}
+          >
+            Télécharger mes données (JSON)
+          </button>
+          <button
+            type="button"
+            className="rounded-full border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-800"
+            onClick={async () => {
+              setRightsMsg("");
+              const ok = window.confirm(
+                "Anonymiser définitivement ce compte ? Vous serez déconnecté et ne pourrez plus vous reconnecter avec cet e-mail."
+              );
+              if (!ok) return;
+              const res = await fetch("/api/profile/data-deletion", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ confirmation: "SUPPRIMER_MES_DONNEES" })
+              });
+              const data = await res.json();
+              if (!res.ok || !data.success) {
+                setRightsMsg(data.message ?? "Action impossible.");
+                return;
+              }
+              setRightsMsg(data.message ?? "Compte anonymisé.");
+              window.location.href = "/";
+            }}
+          >
+            Anonymiser mon compte
+          </button>
+        </div>
+      </div>
     </form>
   );
 }

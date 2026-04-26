@@ -4,8 +4,7 @@ import { RowDataPacket } from "mysql2";
 import { getCurrentUser } from "@/lib/auth";
 import { getDbPool } from "@/lib/db";
 import { ensureSameOrigin } from "@/lib/request-security";
-import { checkRateLimit } from "@/lib/rate-limit";
-import { checkDistributedRateLimit } from "@/lib/rate-limit-distributed";
+import { checkRateLimitSmart } from "@/lib/rate-limit";
 import { fail, ok } from "@/lib/api-response";
 import { writeAuditLog } from "@/lib/audit-log";
 import { incrementMetric } from "@/lib/observability";
@@ -67,11 +66,7 @@ export async function POST(request: Request) {
     return fail("Non autorisé.", "UNAUTHORIZED", 401);
   }
 
-  const distributed = await checkDistributedRateLimit({ key: `incidents:${user.id}`, windowSec: 60, limit: 10 });
-  if (distributed && !distributed.ok) {
-    return fail(`Trop de requêtes. Réessayez dans ${distributed.retryAfterSec}s.`, "RATE_LIMITED", 429);
-  }
-  const rate = checkRateLimit(request, "client-incidents", 10, 60_000);
+  const rate = await checkRateLimitSmart(request, `client-incidents:${user.id}`, 10, 60_000);
   if (!rate.ok) {
     return fail(`Trop de requêtes. Réessayez dans ${rate.retryAfterSec}s.`, "RATE_LIMITED", 429);
   }

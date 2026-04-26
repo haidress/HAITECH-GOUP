@@ -1,0 +1,37 @@
+# Chaque lundi : export CSV des leads + purge selon leads_retention_days (settings).
+# Secrets : HAITECH_SITE_URL, HAITECH_CRON_SECRET
+
+name: Cron — export leads & purge rétention
+
+on:
+  schedule:
+    - cron: "5 6 * * 1"
+  workflow_dispatch: {}
+
+jobs:
+  export-and-purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GET export CSV
+        env:
+          SITE_URL: ${{ secrets.HAITECH_SITE_URL }}
+          CRON_SECRET: ${{ secrets.HAITECH_CRON_SECRET }}
+        run: |
+          if [ -z "$SITE_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "::warning::Définissez HAITECH_SITE_URL et HAITECH_CRON_SECRET."
+            exit 0
+          fi
+          mkdir -p cron-artifacts
+          curl -sfS -o "cron-artifacts/leads-$(date -u +%Y%m%d).csv" \
+            "${SITE_URL%/}/api/cron/leads-export" \
+            -H "Authorization: Bearer ${CRON_SECRET}"
+      - name: GET purge rétention
+        env:
+          SITE_URL: ${{ secrets.HAITECH_SITE_URL }}
+          CRON_SECRET: ${{ secrets.HAITECH_CRON_SECRET }}
+        run: |
+          if [ -z "$SITE_URL" ] || [ -z "$CRON_SECRET" ]; then
+            exit 0
+          fi
+          curl -sfS "${SITE_URL%/}/api/cron/leads-retention-purge" \
+            -H "Authorization: Bearer ${CRON_SECRET}"

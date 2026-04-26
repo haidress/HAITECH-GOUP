@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { RowDataPacket } from "mysql2";
 import { z } from "zod";
 import { getDbPool } from "@/lib/db";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimitSmart } from "@/lib/rate-limit";
 import { ensureSameOrigin } from "@/lib/request-security";
 
 const schema = z.object({
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   const originGuard = ensureSameOrigin(request);
   if (originGuard) return originGuard;
 
-  const rate = checkRateLimit(request, "orders-track", 12, 60_000);
+  const rate = await checkRateLimitSmart(request, "orders-track", 12, 60_000);
   if (!rate.ok) {
     return NextResponse.json(
       { success: false, message: `Trop de tentatives. Réessayez dans ${rate.retryAfterSec}s.` },

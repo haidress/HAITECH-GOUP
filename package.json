@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "migrate": "node scripts/migrate.cjs",
+    "seed:blog": "node scripts/seed-blog-bulk.cjs",
     "quality": "npm run typecheck && npm run lint && npm run test"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "mysql2": "^3.20.0",
     "next": "^14.2.16",
     "nodemailer": "^8.0.4",
+    "pdf-lib": "^1.17.1",
     "pdfkit": "^0.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -10,6 +10,14 @@ const createProductSchema = z.object({
   description: z.string().max(4000).optional().nullable(),
   categorie: z.enum(["Business Center", "Boutique IT"]),
   prixBase: z.coerce.number().min(0),
+  prixInitial: z.preprocess(
+    (value) => (value === "" || value == null ? undefined : value),
+    z.coerce.number().min(0).optional()
+  ),
+  imageUrl: z.preprocess(
+    (value) => (value === "" || value == null ? null : value),
+    z.string().max(512).nullable()
+  ),
   actif: z.boolean().optional()
 });
 
@@ -21,7 +29,7 @@ export async function GET() {
   try {
     const pool = getDbPool();
     const [rows] = await pool.query<RowDataPacket[]>(
-      "SELECT id, nom, description, categorie, prix_base, actif FROM services ORDER BY id DESC"
+      "SELECT id, nom, description, categorie, prix_base, prix_initial, image_url, actif FROM services ORDER BY id DESC"
     );
     return NextResponse.json({ success: true, data: rows });
   } catch (error) {
@@ -51,8 +59,16 @@ export async function POST(request: Request) {
     const pool = getDbPool();
     const data = parsed.data;
     const [result] = await pool.execute(
-      "INSERT INTO services (nom, description, categorie, prix_base, actif) VALUES (?, ?, ?, ?, ?)",
-      [data.nom, data.description ?? null, data.categorie, data.prixBase, data.actif ?? true]
+      "INSERT INTO services (nom, description, categorie, prix_base, prix_initial, image_url, actif) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [
+        data.nom,
+        data.description ?? null,
+        data.categorie,
+        data.prixBase,
+        data.prixInitial ?? null,
+        data.imageUrl ?? null,
+        data.actif ?? true
+      ]
     );
 
     return NextResponse.json({ success: true, id: (result as { insertId: number }).insertId });

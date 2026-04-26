@@ -1,3 +1,5 @@
+import { checkDistributedRateLimit } from "@/lib/rate-limit-distributed";
+
 type Bucket = {
   count: number;
   resetAt: number;
@@ -5,7 +7,7 @@ type Bucket = {
 
 const buckets = new Map<string, Bucket>();
 
-function getClientIp(request: Request) {
+export function getClientIp(request: Request) {
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {
     return forwarded.split(",")[0]?.trim() || "unknown";
@@ -31,4 +33,15 @@ export function checkRateLimit(request: Request, key: string, limit: number, win
   current.count += 1;
   buckets.set(bucketKey, current);
   return { ok: true, remaining: limit - current.count };
+}
+
+export async function checkRateLimitSmart(request: Request, key: string, limit: number, windowMs: number) {
+  const ip = getClientIp(request);
+  const distributed = await checkDistributedRateLimit({
+    key: `${key}:${ip}`,
+    windowSec: Math.max(1, Math.ceil(windowMs / 1000)),
+    limit
+  });
+  if (distributed) return distributed;
+  return checkRateLimit(request, key, limit, windowMs);
 }

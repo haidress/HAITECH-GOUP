@@ -12,8 +12,8 @@ const config: Config = {
         haitechGold: "#D4A017"
       },
       fontFamily: {
-        heading: ["Montserrat", "sans-serif"],
-        body: ["Poppins", "sans-serif"]
+        heading: ["var(--font-montserrat)", "Montserrat", "sans-serif"],
+        body: ["var(--font-poppins)", "Poppins", "sans-serif"]
       }
     }
   },
